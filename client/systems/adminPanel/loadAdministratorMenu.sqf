@@ -16,8 +16,7 @@ if ((_uid in moderators) OR (_uid in administrators) OR (_uid in serverAdministr
 	_adminSelect = _displayAdmin displayCtrl adminMenu_option;
 	
 	_panelOptions = ["Player Menu",
-					"Vehicle Management",
-					"Tags"
+					"Vehicle Management"
 	];
 	
 	{
