@@ -89,7 +89,7 @@ if ((_uid in moderators) OR (_uid in administrators) OR (_uid in serverAdministr
 			    };
 	            case 4: //Money
 			    {      
-					player setVariable["cmoney", (player getVariable "cmoney")+1000,true];
+					player setVariable["cmoney", (player getVariable "cmoney")+200,true];
 			    };
 	            case 5: //Debug Menu
 			    {   
