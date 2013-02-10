@@ -4,7 +4,7 @@
 //	@file Created: 20/11/2012 05:19
 //	@file Description: The server init.
 //	@file Args:
-
+#include "setup.sqf"
 if(!X_Server) exitWith {};
 
 sideMissions = 1;
@@ -21,23 +21,25 @@ waitUntil{scriptDone _serverCompiledScripts};
 
 diag_log format["WASTELAND SERVER - Server Complie Finished"];
 
+#ifdef __DEBUG__
+#else
 //Execute Server Spawning.
 if (serverSpawning == 1) then {
     diag_log format["WASTELAND SERVER - Initilizing Server Spawning"];
 	_vehSpawn = [] ExecVM "server\functions\vehicleSpawning.sqf";
-	waitUntil{sleep 0.2; scriptDone _vehSpawn};
+	waitUntil{sleep 0.3; scriptDone _vehSpawn};
     _objSpawn = [] ExecVM "server\functions\objectsSpawning.sqf";
-	waitUntil{sleep 0.2; scriptDone _objSpawn};
+	waitUntil{sleep 0.3; scriptDone _objSpawn};
     _boxSpawn = [] ExecVM "server\functions\boxSpawning.sqf";
-	waitUntil{sleep 0.2; scriptDone _boxSpawn};
+	waitUntil{sleep 0.3; scriptDone _boxSpawn};
     _gunSpawn = [] ExecVM "server\functions\staticGunSpawning.sqf";
-	waitUntil{sleep 0.2; scriptDone _gunSpawn};
+	waitUntil{sleep 0.3; scriptDone _gunSpawn};
     _heliSpawn = [] ExecVM "server\functions\staticHeliSpawning.sqf";
-    waitUntil{sleep 0.2; scriptDone _heliSpawn};
+    waitUntil{sleep 0.3; scriptDone _heliSpawn};
     _markerClean = [] ExecVM "server\functions\cleanMarkers.sqf";
-    waitUntil{sleep 0.2; scriptDone _markerClean};
+    waitUntil{sleep 0.3; scriptDone _markerClean};
 };
-
+#endif
 //Execute Server Missions.
 if (sideMissions == 1) then {
 	diag_log format["WASTELAND SERVER - Initilizing Missions"];
