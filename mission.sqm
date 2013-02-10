@@ -87,7 +87,7 @@ class Mission
 	randomSeed=15307759;
 	class Intel
 	{
-		briefingName="404Wasteland - Utes [v2.9] - GoT2DayZ";
+		briefingName="404Wasteland - Utes [v2.9a] - GoT2DayZ";
 		briefingDescription="Wasteland is a harsh survival sandbox created by 404Games and adjusted by Joschaap and Rienspy - Hosted by GoT2DayZ.nl - fb.me/got2dayz redd.it/r/got2dayz";
 		resistanceWest=0;
 		startWeather=0.25;
