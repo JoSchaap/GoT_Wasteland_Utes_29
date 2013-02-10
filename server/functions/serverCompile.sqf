@@ -1,9 +1,9 @@
-
 //	@file Version: 1.0
 //	@file Name: serverCompile.sqf
 //	@file Author: [404] Deadbeat
 //	@file Created: 20/11/2012 05:19
 //	@file Args:
+#include "setup.sqf"
 
 if(!X_Server) exitWith {};
 
@@ -48,3 +48,8 @@ fn_refillbox = compile preprocessFileLineNumbers "server\functions\fn_refillbox.
 
 //Player Management
 server_playerDied = compile preprocessFileLineNumbers "server\functions\serverPlayerDied.sqf";
+
+//.Net Compiles
+#ifdef __A2NET__
+arma2NetTime = compile preprocessFileLineNumbers "server\functions\netTime.sqf";
+#endif
