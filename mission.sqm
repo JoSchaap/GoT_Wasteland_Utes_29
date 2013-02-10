@@ -1051,7 +1051,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gs2";
-					init="this addEventHandler[""handledamage"", {false}]; this disableAI ""MOVE"";this disableAI ""FSM""; this addAction[""<t color='#ff1111'>Guns-r-us</t>"", ""client\systems\gunStore\loadGunStore.sqf"",'gs1']; this attachTo[fp1,[-1.5,0,0]];";
+					init="this addEventHandler[""handledamage"", {false}]; this disableAI ""MOVE"";this disableAI ""FSM""; this addAction[""<t color='#ff1111'>Guns-r-us</t>"", ""client\systems\gunStore\loadGunStore.sqf"",'gs2']; this attachTo[fp1,[-1.5,0,0]];";
 				};
 			};
 		};
