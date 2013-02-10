@@ -3,7 +3,7 @@
 //	@file Author: [404] Deadbeat, [404] Costlyy
 //	@file Created: 08/12/2012 15:19
 //	@file Args:
-
+#include "setup.sqf"
 #include "sideMissionDefines.sqf";
 
 if(!isServer) exitwith {};
@@ -13,8 +13,12 @@ private ["_result","_missionMarkerName","_missionType","_startTime","_returnData
 //Mission Initialization.
 _result = 0;
 _missionMarkerName = "Truck_Marker";
-_missionType = "Abandoned Vehicle";
+_missionType = "Abandoned Truck";
+#ifdef __A2NET__
+_startTime = floor(netTime);
+#else
 _startTime = floor(time);
+#endif
 
 diag_log format["WASTELAND SERVER - Side Mission Started: %1",_missionType];
 
@@ -29,7 +33,7 @@ diag_log format["WASTELAND SERVER - Side Mission Resumed: %1",_missionType];
 
 [_missionMarkerName,_randomPos,_missionType] call createClientMarker;
 
-_vehicleClass = ["MtvrRefuel","MtvrReammo","MtvrRepair","LandRover_Special_CZ_EP1","Ka137_PMC","Offroad_DSHKM_Gue"] call BIS_fnc_selectRandom;
+_vehicleClass = ["MtvrRefuel","MtvrReammo","MtvrRepair"] call BIS_fnc_selectRandom;
 
 //Vehicle Class, Posistion, Fuel, Ammo, Damage
 _vehicle = [_vehicleClass,_randomPos,1,1,0,"NONE"] call createMissionVehicle;
@@ -40,12 +44,20 @@ _hint = parseText format ["<t align='center' color='%4' shadow='2' size='1.75'>S
 [nil,nil,rHINT,_hint] call RE;
 
 diag_log format["WASTELAND SERVER - Side Mission Waiting to be Finished: %1",_missionType];
+#ifdef __A2NET__
+_startTime = floor(netTime);
+#else
 _startTime = floor(time);
+#endif
 waitUntil
 {
     sleep 1; 
 	_playerPresent = false;
+	#ifdef __A2NET__
+	_currTime = floor(netTime);
+	#else
     _currTime = floor(time);
+	#endif
     if(_currTime - _startTime >= sideMissionTimeout) then {_result = 1;};
     {if((isPlayer _x) AND (_x distance _vehicle <= missionRadiusTrigger)) then {_playerPresent = true};}forEach playableUnits;
     (_result == 1) OR (_playerPresent) OR ((damage _vehicle) == 1)
@@ -63,7 +75,7 @@ if(_result == 1) then
     diag_log format["WASTELAND SERVER - Side Mission Failed: %1",_missionType];
 } else {
 	//Mission Complete.
-    _hint = parseText format ["<t align='center' color='%4' shadow='2' size='1.75'>Objective Complete</t><br/><t align='center' color='%4'>------------------------------</t><br/><t align='center' color='%5' size='1.25'>%1</t><br/><t align='center'><img size='5' image='%2'/></t><br/><t align='center' color='%5'>The vehicle has been captured, should help the team</t>", _missionType, _picture, _vehicleName, successMissionColor, subTextColor];
+    _hint = parseText format ["<t align='center' color='%4' shadow='2' size='1.75'>Objective Complete</t><br/><t align='center' color='%4'>------------------------------</t><br/><t align='center' color='%5' size='1.25'>%1</t><br/><t align='center'><img size='5' image='%2'/></t><br/><t align='center' color='%5'>The truck has been captured, should help the team</t>", _missionType, _picture, _vehicleName, successMissionColor, subTextColor];
 	[nil,nil,rHINT,_hint] call RE;
     diag_log format["WASTELAND SERVER - Side Mission Success: %1",_missionType];
 };
