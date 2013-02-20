@@ -9,7 +9,7 @@
 
 if(!isServer) exitwith {};
 
-private ["truck2"];
+private ["_truck2"];
 
 
 //Start Mission
