@@ -36,7 +36,7 @@ diag_log format["WASTELAND SERVER - Main Mission Resumed: %1",_missionType];
 _cargoItem_1 = ["MV22","UH1Y","Mi17_Civilian","Mi17_medevac_RU","MH60S","UH60M_EP1","CH_47F_BAF","MH6J_EP1","AH6X_EP1","UH1H_TK_GUE_EP1","Ka60_PMC","BAF_Merlin_HC3_D"] call BIS_fnc_selectRandom;
 
 //Vehicle Class, Posistion, Fuel, Ammo, Damage, State
-//_vehicle = [_vehicleClass,_randomPos,0,1,0.75,"NONE"] call createMissionVehicle;
+//_vehicle = [_vehicleClass,_randomPos,0.05,1,0,"NONE"] call createMissionVehicle;
 
 CivGrpM = createGroup civilian;
 
