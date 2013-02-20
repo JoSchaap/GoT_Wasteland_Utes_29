@@ -15,12 +15,12 @@
 
 #else
 
-#define mainMissionTimeout 1800
-#define mainMissionDelayTime 900
+#define mainMissionTimeout 1600
+#define mainMissionDelayTime 800
 
 #endif
 
-#define missionRadiusTrigger 50
+#define missionRadiusTrigger 40
 
 #define mainMissionColor "#52bf90"
 #define failMissionColor "#FF1717"
