@@ -11,7 +11,7 @@ diag_log format["WASTELAND SERVER - Initilizing Server Compile"];
 
 //Main Mission Compiles
 mission_APC = compile preprocessFileLineNumbers "server\missions\mainMissions\mission_APC.sqf";
-mission_APC2 = compile preprocessFileLineNumbers "server\missions\mainMissions\mission_APC2.sqf";
+// (doesnt exist?) mission_APC2 = compile preprocessFileLineNumbers "server\missions\mainMissions\mission_APC2.sqf";
 mission_Heli = compile preprocessFileLineNumbers "server\missions\mainMissions\mission_Heli.sqf";
 mission_LightArmVeh = compile preprocessFileLineNumbers "server\missions\mainMissions\mission_LightArmVeh.sqf";
 mission_LightTank = compile preprocessFileLineNumbers "server\missions\mainMissions\mission_LightTank.sqf";
