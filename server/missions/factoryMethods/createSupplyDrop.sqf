@@ -29,7 +29,7 @@ _startTime = floor(netTime);
 #else
 _startTime = floor(time);
 #endif
-Waituntil {  
+Waituntil {	
 #ifdef __A2NET__
 _currTime = floor(netTime);
 #else
@@ -37,7 +37,6 @@ _currTime = floor(time);
 #endif
 if(_currTime - _startTime >= 1200) then {_result = 1;};
 (_result == 1) OR ((_plane distance _randomPos) < 2000)};
-
 	
 _plane animate ["ramp_top",1];
 _plane animate ["ramp_bottom",1];
@@ -60,7 +59,7 @@ sleep 7;
 	};
 };
 	
-+Waituntil {
+Waituntil {
 #ifdef __A2NET__
 _currTime = floor(netTime);
 #else
@@ -126,8 +125,7 @@ if(damage _plane == 1) then {
 		_currTime = floor(time);
 		#endif
 		if(_currTime - _startTime >= 1200) then {_result = 1;};
-		(_result == 1) OR((_plane distance _randomPos) > 2500) OR (damage _plane == 1)
-		};
+		(_result == 1) OR((_plane distance _randomPos) > 2500) OR (damage _plane == 1)};
 	};   
 };
 	

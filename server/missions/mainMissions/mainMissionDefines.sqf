@@ -1,4 +1,4 @@
-//  @file Version: 1.0
+//	@file Version: 1.0
 //	@file Name: missionDefines.sqf
 //	@file Author: [404] Deadbeat
 //	@file Created: 08/12/2012 15:19
@@ -16,11 +16,11 @@
 #else
 
 #define mainMissionTimeout 1800
-#define mainMissionDelayTime 1200
+#define mainMissionDelayTime 900
 
 #endif
 
-#define missionRadiusTrigger 40
+#define missionRadiusTrigger 50
 
 #define mainMissionColor "#52bf90"
 #define failMissionColor "#FF1717"
