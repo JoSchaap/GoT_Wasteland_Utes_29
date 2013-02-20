@@ -9,7 +9,7 @@
 
 if(!isServer) exitwith {};
 
-private ["_randomPos","_truckpos","_behaviour","distance","_unitsAlive","_missionMarkerName_here","_truckcount","_truckpos","_missionType_here"];
+private ["_randomPos","_truckpos","_behaviour","_distance","_unitsAlive","_missionMarkerName_here","_truckcount","_truckpos","_missionType_here"];
 
 _truck = _this select 0; //_truck is the vehicle we are looking
 _randomPos = _this select 1; //destination final
