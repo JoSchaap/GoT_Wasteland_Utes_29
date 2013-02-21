@@ -1,62 +1,69 @@
-//	@file Version: 1.0
-//	@file Name: init.sqf
-//	@file Author: [404] Deadbeat
-//	@file Created: 20/11/2012 05:13
-//	@file Description: The main init.
-//	@file Args:
+//@file Version: 1.0
+//@file Name: init.sqf
+//@file Author: [404] Deadbeat
+//@file Created: 20/11/2012 05:19
+//@file Description: The client init.
 
-//"Arma2Net.Unmanaged" callExtension "Activate";
-#include "setup.sqf"
-if (isnil "RE") then {[] execVM "\ca\Modules\MP\data\scripts\MPframework.sqf"};
+if(!X_Client) exitWith {};
 
-StartProgress = false;
-enableSaving[false,false];
+mutexScriptInProgress = false;
+respawnDialogActive = false;
+groupManagmentActive = false;
+pvar_PlayerTeamKiller = objNull;
+doCancelAction = false;
+currentMissionsMarkers = [];
+currentRadarMarkers = [];
 
-X_Server = false;
-X_Client = false;
-X_JIP = false;
-hitStateVar = false;
-versionName = "v2.9a";
+//Initialization Variables
+playerCompiledScripts = false;
+playerSetupComplete = false;
 
-if(isServer) then { X_Server = true;};
-if(!isDedicated) then { X_Client = true;};
-if(isNull player) then {X_JIP = true;};
+waitUntil {!isNull player};
+waitUntil{time > 2};
 
-true spawn {
-	if(!isDedicated) then {
-		titleText ["Please wait for your player to setup", "BLACK", 0];
-		waitUntil {player == player};
-		client_initEH = player addEventHandler ["Respawn", {removeAllWeapons (_this select 0);}];
-	};
+//Call client compile list.
+player call compile preprocessFileLineNumbers "client\functions\clientCompile.sqf";
+
+//Stop people being civ's.
+if(!(playerSide in [west, east, resistance])) then {
+	endMission "LOSER";
 };
 
-//init Wasteland Core
-[] execVM "config.sqf";
-[] execVM "briefing.sqf";
+//Player setup
+player call playerSetup;
 
-if(X_Client) then {
-	waitUntil {player == player};
+//Setup player events.
+if(!isNil "client_initEH") then {player removeEventHandler ["Respawn", client_initEH];};
+player addEventHandler ["Respawn", {[_this] call onRespawn;}];
+player addEventHandler ["Killed", {[_this] call onKilled;}];
 
-	//Wipe Group.
-	if(count units group player > 1) then
-	{  
-		diag_log "Player Group Wiped";
-		[player] join grpNull;    
-	};
+//Setup player menu scroll action.
+[] execVM "client\clientEvents\onMouseWheel.sqf";
 
-	[] execVM "client\init.sqf";
+//Setup Key Handler
+waituntil {!(IsNull (findDisplay 46))};
+(findDisplay 46) displaySetEventHandler ["KeyDown", "_this call onKeyPress"];
+
+"currentDate" addPublicVariableEventHandler {[] call timeSync};
+"clientMissionMarkers" addPublicVariableEventHandler {[] call updateMissionsMarkers};
+"clientRadarMarkers" addPublicVariableEventHandler {[] call updateRadarMarkers};
+"pvar_teamKillList" addPublicVariableEventHandler {[] call updateTeamKiller};
+"publicVar_teamkillMessage" addPublicVariableEventHandler {if(local(_this select 1)) then {[] spawn teamkillMessage;};};
+
+//client Executes
+[] execVM "client\functions\initSurvival.sqf";
+[] execVM "client\systems\hud\playerHud.sqf";
+[] execVM "client\functions\createTownMarkers.sqf";
+[] execVM "client\functions\createGunStoreMarkers.sqf";
+[] execVM "client\functions\createGeneralStoreMarkers.sqf";
+//true execVM "client\functions\loadAtmosphere.sqf"; // Set to false to disable dust, ash and wind
+[] execVM "client\functions\playerTags.sqf";
+[] execVM "client\functions\groupTags.sqf";
+[] call updateMissionsMarkers;
+[] call updateRadarMarkers;
+if (isNil "FZF_IC_INIT") then   {
+	call compile preprocessFileLineNumbers "client\functions\newPlayerIcons.sqf";
 };
-
-if(X_Server) then {
-	diag_log format ["############################# %1 #############################", missionName];
-	#ifdef __DEBUG__
-	diag_log format ["T%1,DT%2,F%3", time, diag_tickTime, diag_frameno];
-	#endif
-    	diag_log format["WASTELAND SERVER - Initilizing Server"];
-	[] execVM "server\init.sqf";
-};
-
-//init 3rd Party Scripts
-[] execVM "addons\R3F_ARTY_AND_LOG\init.sqf";
-[] execVM "addons\proving_Ground\init.sqf";
-[0.1, 0.5, 0.5] execVM "addons\scripts\DynamicWeatherEffects.sqf";
+sleep 1;
+true spawn playerSpawn;
+[] spawn FZF_IC_INIT;
