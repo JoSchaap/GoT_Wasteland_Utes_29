@@ -4,8 +4,6 @@
 //	@file Created: 20/11/2012 05:13
 //	@file Description: The main init.
 //	@file Args:
-
-//"Arma2Net.Unmanaged" callExtension "Activate";
 #include "setup.sqf"
 if (isnil "RE") then {[] execVM "\ca\Modules\MP\data\scripts\MPframework.sqf"};
 
@@ -16,7 +14,7 @@ X_Server = false;
 X_Client = false;
 X_JIP = false;
 hitStateVar = false;
-versionName = "v2.9a";
+versionName = "v2.9b";
 
 if(isServer) then { X_Server = true;};
 if(!isDedicated) then { X_Client = true;};
@@ -52,7 +50,7 @@ if(X_Server) then {
 	#ifdef __DEBUG__
 	diag_log format ["T%1,DT%2,F%3", time, diag_tickTime, diag_frameno];
 	#endif
-    	diag_log format["WASTELAND SERVER - Initilizing Server"];
+    diag_log format["WASTELAND SERVER - Initilizing Server"];
 	[] execVM "server\init.sqf";
 };
 
