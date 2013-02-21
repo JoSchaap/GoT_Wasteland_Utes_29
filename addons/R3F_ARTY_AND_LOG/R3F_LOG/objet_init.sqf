@@ -1,5 +1,5 @@
 /**
- * Initialise un objet déplaçable/héliportable/remorquable/transportable
+ * Initialise un objet dï¿½plaï¿½able/hï¿½liportable/remorquable/transportable
  * 
  * @param 0 l'objet
  * 
@@ -10,7 +10,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-private ["_objet", "_est_desactive", "_est_transporte_par", "_est_deplace_par", "_objectState", "_doLock", "_doUnlock"];
+private ["_objet", "_est_desactive", "_est_transporte_par", "_est_deplace_par", "_objectState", "_doLock", "_doUnlock","_currentAnim","_config","_onLadder"];
 
 _objet = _this select 0;
 
@@ -23,21 +23,21 @@ if (isNil "_est_desactive") then
 	_objet setVariable ["R3F_LOG_disabled", false];
 };
 
-// Définition locale de la variable si elle n'est pas définie sur le réseau
+// Dï¿½finition locale de la variable si elle n'est pas dï¿½finie sur le rï¿½seau
 _est_transporte_par = _objet getVariable "R3F_LOG_est_transporte_par";
 if (isNil "_est_transporte_par") then
 {
 	_objet setVariable ["R3F_LOG_est_transporte_par", objNull, false];
 };
 
-// Définition locale de la variable si elle n'est pas définie sur le réseau
+// Dï¿½finition locale de la variable si elle n'est pas dï¿½finie sur le rï¿½seau
 _est_deplace_par = _objet getVariable "R3F_LOG_est_deplace_par";
 if (isNil "_est_deplace_par") then
 {
 	_objet setVariable ["R3F_LOG_est_deplace_par", objNull, false];
 };
 
-// Ne pas monter dans un véhicule qui est en cours de transport
+// Ne pas monter dans un vï¿½hicule qui est en cours de transport
 _objet addEventHandler ["GetIn",
 {
 	if (_this select 2 == player) then
