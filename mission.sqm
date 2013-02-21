@@ -3152,7 +3152,7 @@ class Mission
 		};
 		class Item116
 		{
-		position[]={4322.0674,35,3751.3459};
+		position[]={60.0674,35,60.3459};
 		name="plane2";
 		type="Empty";
 		};
